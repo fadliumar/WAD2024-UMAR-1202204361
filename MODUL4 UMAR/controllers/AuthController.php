@@ -18,7 +18,23 @@ class AuthController
     {
         $conn = $this->conn;
         if (isset($_POST['submit'])) {
-            
+
+            // TODO: Lengkapi fungsi login dengan langkah berikut:
+            // 1. Ambil nim dan password dari form login
+            // 2. Buat query untuk mencari mahasiswa berdasarkan NIM
+            // 3. Eksekusi query menggunakan mysqli_query
+            // 4. Ambil hasil query menggunakan mysqli_fetch_assoc
+            // 5. Cek apakah mahasiswa ditemukan
+            // 6. Jika ditemukan, verifikasi password menggunakan password_verify
+            // 7. Jika password benar:
+            //    - Set session login = true
+            //    - Set session user dengan data mahasiswa
+            //    - Set session message dengan "Login Berhasil"
+            //    - Jika remember_me dicentang, buat cookie untuk nim dan password
+            //    - Redirect ke halaman dashboard menggunakan (header('Location: index.php?controller=dashboard&action=index'))
+            //    - Jangan lupa exit setelah redirect
+            // 8. Jika password salah, set session message "Login Gagal NIM atau Password Salah"
+            // 9. Jika mahasiswa tidak ditemukan, set session message "NIM Tidak Ditemukan"
             $nim = $input['nim'];
             $password = $input['password'];
 
@@ -49,33 +65,14 @@ class AuthController
                 $_SESSION['color'] = "danger";
             }
         }
-        
-
-            // TODO: Lengkapi fungsi login dengan langkah berikut:
-            // 1. Ambil nim dan password dari form login
-            // 2. Buat query untuk mencari mahasiswa berdasarkan NIM
-            // 3. Eksekusi query menggunakan mysqli_query
-            // 4. Ambil hasil query menggunakan mysqli_fetch_assoc
-            // 5. Cek apakah mahasiswa ditemukan
-            // 6. Jika ditemukan, verifikasi password menggunakan password_verify
-            // 7. Jika password benar:
-            //    - Set session login = true
-            //    - Set session user dengan data mahasiswa
-            //    - Set session message dengan "Login Berhasil"
-            //    - Jika remember_me dicentang, buat cookie untuk nim dan password
-            //    - Redirect ke halaman dashboard menggunakan (header('Location: index.php?controller=dashboard&action=index'))
-            //    - Jangan lupa exit setelah redirect
-            // 8. Jika password salah, set session message "Login Gagal NIM atau Password Salah"
-            // 9. Jika mahasiswa tidak ditemukan, set session message "NIM Tidak Ditemukan"
             
-        
-
         include 'views/auth/login.php';
     }
 
     private function getJurusan($jurusan){
 
         $kode_jurusan = 0;
+
         // TODO: Lengkapi fungsi untuk mendapatkan kode jurusan
         // 1. Buat variabel $kode_jurusan dengan nilai default 0
         // 2. Gunakan switch-case atau if-else untuk mengatur kode jurusan:
@@ -88,11 +85,11 @@ class AuthController
 
     private function generateNIM($id_pendaftaran){
         $conn = $this->conn;
-
-        $query = "SELECT * FROM users WHERE id_pendaftaran = '$id_pendaftaran'";
         // TODO: Lengkapi fungsi untuk generate NIM dengan format: [kode_jurusan][tahun_masuk][id_pendaftaran]
         // 1. Buat query untuk mengambil data pendaftaran berdasarkan id_pendaftaran
+        $query = "SELECT * FROM users WHERE id_pendaftaran = '$id_pendaftaran'";
         // 2. Eksekusi query dan ambil hasilnya
+        $result = mysqli_fetch_
         // 3. Ambil tahun sekarang dalam format 2 digit menggunakan date('y')
         // 4. Jika data ditemukan:
         //    - Ambil data jurusan dari hasil query
@@ -116,6 +113,8 @@ class AuthController
             // 2. Buat query untuk mencari pendaftaran berdasarkan id_pendaftaran dengan status 'lulus'
             $query = "SELECT * FROM users WHERE id_pendaftaran = '$id_pendaftaran'";
             // 3. Eksekusi query dan ambil hasilnya
+            $result = mysqli_query($conn, $query);
+
             // 4. Jika ditemukan:
             //    - Set session id_pendaftaran dengan id_pendaftaran
             //    - Redirect ke register step 2 menggunakan (header('Location: index.php?controller=auth&action=register_step_2'))

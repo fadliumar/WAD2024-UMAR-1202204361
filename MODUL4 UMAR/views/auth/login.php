@@ -22,7 +22,7 @@
                     <div class="card-body">
                         <?php // TODO: Tampilkan session message
                             // 1. Cek apakah session message ada
-                            
+                            echo $_SESSION
                             ?>
                             <div class="alert alert-info alert-dismissible fade show">
                                 <i class="fas fa-info-circle me-2"></i>

@@ -13,6 +13,9 @@ class DashboardController {
 
     public function index() {
         $conn = $this->conn;
+
+        
+
         // TODO: Implementasi sistem autentikasi dengan langkah berikut:
         // 1. Cek apakah user sudah login dengan memeriksa session login
         // 2. Jika belum login:
